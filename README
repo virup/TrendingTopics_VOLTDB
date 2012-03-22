@@ -33,6 +33,9 @@ python readTweet.py -w <count>  : Runs the program using <count> number of worke
  
 The options can be combined with each other
 
+NOTE: Press CTRL+C to end the program
+
+
 Interpreting the Results
 ------------------------
 The trending topics are a simple list of 10 words. (Note: The 'u' before each word says that they are in unicode.)
