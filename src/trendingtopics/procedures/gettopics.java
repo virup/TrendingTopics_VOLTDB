@@ -15,7 +15,7 @@ public class gettopics extends VoltProcedure {
 	);
 
 
-	public VoltTable run(String word)
+	public VoltTable run()
         {
     	    voltQueueSQL(sqlTop);
     	    return voltExecuteSQL()[0];
