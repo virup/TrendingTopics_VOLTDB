@@ -38,7 +38,7 @@ NOTE: Press CTRL+C to end the program
 
 Interpreting the Results
 ------------------------
-The trending topics are a simple list of 10 words. (Note: The 'u' before each word says that they are in unicode.)
+The trending topics are a simple list of 10 words. 
 
 The leaderboard outputs the following list :
 
@@ -52,7 +52,7 @@ Updates per sec : <count>	: The average number of database updates per sec in th
 
 Details of the application
 -------------------------
-This is  a prototype of the Twitter's 'trending topics'. This application does not use any form of machine learning to reveal topics, but have implemented a rather dumb version which simply shows the top 10 most frequently used words in Twitter in the last 5 minutes. In order to accomplish this task, I have used VoltDB as my data store to keep a record of the words that have been encountered and their counts.
+This is  a prototype of the Twitter's 'trending topics'. This application does not use any form of machine learning to reveal topics, but have implemented a rather dumb version which simply shows the top 10 most frequently used words in Twitter in the last 5 minutes. In order to accomplish this task, I have used VoltDB (www.voltdb.com) as my data store to keep a record of the words that have been encountered and their counts.
 
 In order to get the real time tweets from the twitter, Twitter's streaming API has been used. Since the Twitter libraries are best supported in Python, the actual code is in Python and JSON over HTTP has been used to operate on the VoltDB. 
 
