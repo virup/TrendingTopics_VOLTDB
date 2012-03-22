@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<project>
+    <info>
+        <name>Trending Topics Example</name>
+        <version>1.0</version>
+        <description>Finds the trending topics in twiiter in real time.</description>
+    </info>
+    <database>
+        <schemas>
+            <schema path='ddl.sql' />
+        </schemas>
+        <procedures>
+            <procedure class='trendingtopics.procedures.purge' />
+            <procedure class='trendingtopics.procedures.addword' />
+	    <procedure class='trendingtopics.procedures.addwordlist' />
+            <procedure class='trendingtopics.procedures.gettopics' />
+	    <procedure class='trendingtopics.procedures.readstats' />
+            <procedure class='trendingtopics.procedures.initialize' />
+        </procedures>
+        <partitions>
+            <partition table='WORDCOUNT' column='word' />
+        </partitions>
+    </database>
+</project>
