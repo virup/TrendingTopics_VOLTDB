@@ -21,8 +21,8 @@ SHOW_TRENDINGTOPICS = False
 count = 0
 threadlist = []  # list of threads in the program
 
-# some common words which has been avoided
-avoid = ['!', '?', 'que', 'on', 'of', 'in','I', 'q', 'and', 'in', 'for' , 'a', 'RT', ':', '...', 'my', 'me', '.', 'so', 'is','this', 'are', 'get', 'eu', 'just',',', 'de', 'i', 'that'] 
+# some common words to avoid
+avoid = ['with', 'like', 'your', 'have', 'they', 'when', 'love', 'what', 'need', 'some', 'good', 'don\'t', 'want', 'this', 'are', 'get', 'eu', 'just',',', 'de', 'i', 'that', '&amp;', 'it\'s', 'haha'] 
 totalTweets =  0
 
 
@@ -64,11 +64,8 @@ class Client(threading.Thread):
 				self.q.append(u"{0[user][name]}: {0[text]}".format(content))
 
 	def run(self):
-		try:
-			if self.authenticate(self.username, self.password):
-				self.connect()
-		except:
-			sys.exit(0)
+		if self.authenticate(self.username, self.password):
+			self.connect()
 
 
 # worker thread to write to the database
@@ -79,26 +76,24 @@ class Worker(threading.Thread):
 
 	# extracts tweet from the buffer and parses it 
 	def run(self):
-		try:
-			global q
-			while(True):
-				l = len(q[self.nextQIndex])
-				if(l == 0):
-					time.sleep(2)
-					continue 
-				tweet = q[self.nextQIndex].pop(0)
-				self.parseAndAdd(tweet)
-				self.nextQIndex = (self.nextQIndex + 1) % NO_OF_QUEUES
-		except:
-			sys.exit(0)
+		global q
+		while(True):
+			l = len(q[self.nextQIndex])
+			if(l == 0):
+				time.sleep(2)
+				continue 
+			tweet = q[self.nextQIndex].pop(0)
+			self.parseAndAdd(tweet)
+			self.nextQIndex = (self.nextQIndex + 1) % NO_OF_QUEUES
 
 	# Parses the word and invokes the procedure to write it to the database
 	# To make the process faster, instead of sending individual words, a list of word is sent 
 	# to the procedure which are individually written to the database 
 	def parseAndAdd(self, data):
 		global count
-		
-		writeWord = [l for l in data.split() if l not in avoid]
+
+		# accept words which are more than 3 letters 	
+		writeWord = [l for l in data.split() if len(l)>3 and l not in avoid]
 		length  = len(writeWord)
 		#print length
 		voltparams = json.dumps([writeWord, length])
@@ -140,7 +135,6 @@ class statistics(threading.Thread):
 		
 		print "=================================="
 		print str(count/float(TIME_INTERVAL)) + " words per second"
-		#self.TotalCount = self.TotalCount + count 
 		count = 0
 		print "Total tweets : " + str(totalTweets)
 		print "Reads per sec :  " + str(reads/float(TIME_INTERVAL))
@@ -162,24 +156,21 @@ class statistics(threading.Thread):
 		trendingtopicsList = data["results"][0]["data"]
 		print "********** Trending Topics *************"
 		for topic in trendingtopicsList:
-			print topic[0]
+			print "          ", topic[0]
 		print "****************************************"
 		
 		
 
 	def run(self):
-		try:
-			global TIME_INTERVAL
-			global SHOW_LEADERBOARD
-			global SHOW_TRENDINGTOPICS
-			while(True):
-				time.sleep(TIME_INTERVAL)
-				if SHOW_LEADERBOARD == True:
-					self.showLeaderBoard()
-				if SHOW_TRENDINGTOPICS == True:
-					self.showTrendingTopics()
-		except:
-			sys.exit(0)
+		global TIME_INTERVAL
+		global SHOW_LEADERBOARD
+		global SHOW_TRENDINGTOPICS
+		while(True):
+			time.sleep(TIME_INTERVAL)
+			if SHOW_LEADERBOARD == True:
+				self.showLeaderBoard()
+			if SHOW_TRENDINGTOPICS == True:
+				self.showTrendingTopics()
 
 # Class to purge the old words. Words older than 5 minutes are purged from the database
 # using the procedure 'purge'
