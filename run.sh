@@ -39,7 +39,7 @@ function server() {
     if [ ! -f $APPNAME.jar ]; then catalog; fi
     # run the server
     $VOLTDB create catalog $APPNAME.jar deployment deployment.xml \
-        license $LICENSE leader $LEADER
+        license $LICENSE leader $LEADER 
 }
 
 

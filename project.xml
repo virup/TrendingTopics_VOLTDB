@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <project>
-    <info>
+    <info> 
         <name>Trending Topics Example</name>
         <version>1.0</version>
         <description>Finds the trending topics in twiiter in real time.</description>

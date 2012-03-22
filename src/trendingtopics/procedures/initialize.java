@@ -3,7 +3,7 @@ import org.voltdb.*;
 
 @ProcInfo(
 
-	singlePartition= false
+	singlePartition= false 
 )
 
 

@@ -3,7 +3,7 @@ import org.voltdb.*;
 import java.util.Date;
 
 @ProcInfo(
-	singlePartition= false
+	singlePartition= false 
 )
 
 
