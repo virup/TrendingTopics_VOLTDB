@@ -1,5 +1,4 @@
 import pycurl, json
-import Queue
 import threading
 import urllib
 import urllib2
