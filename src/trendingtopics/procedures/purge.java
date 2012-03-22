@@ -11,7 +11,7 @@ import java.util.Date;
 
 
 public class purge extends VoltProcedure {
-	public final long TIMEOUT = 5 * 60 * 1000; // 2 mins in milliseconds
+	public final long TIMEOUT = 5 * 60 * 1000; // 5 mins in milliseconds
 	public final SQLStmt sqlTop = new SQLStmt(
 		"DELETE FROM WORDCOUNT WHERE (? - time ) >= " + TIMEOUT + ";" 
 	);

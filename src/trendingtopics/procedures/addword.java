@@ -4,7 +4,6 @@ import java.util.Date;
 
 @ProcInfo(
 	singlePartition= false
-
 )
 
 
